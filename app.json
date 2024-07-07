@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "ItsFourTwentySomewhere",
-    "slug": "ItsFourTwentySomewhere",
-    "version": "1.0.0",
+    "slug": "itsfourtwentysomewhere",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -13,28 +13,23 @@
     },
     "ios": {
       "supportsTablet": true,
-      "config": {
-        "googleMapsApiKey": "AIzaSyA1NHjZVe5q4mzydy3mfNT6G7Rl20Gvxng"
-      }
+      "buildNumber": "2.0.0",
+      "bundleIdentifier": "com.underbrain.ItsFourTwentySomewhere"
     },
     "android": {
+      "versionCode": 2,  // Increment this number
+      "package": "com.underbrain.ItsFourTwentySomewhere",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "config": {
-        "googleMaps": {
-          "apiKey": "AIzaSyA1NHjZVe5q4mzydy3mfNT6G7Rl20Gvxng"
-        }
-      },
-      "package": "com.underbrain.ItsFourTwentySomewhere"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "2a26af1d-e439-4d05-b5db-fb2ac68d37a0"
+        "projectId": "2a26af1d-e439-4d05-b5db-fb2ac68d37a0"  // Make sure this matches your EAS project ID
       }
     }
   }
