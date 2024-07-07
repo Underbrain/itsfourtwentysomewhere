@@ -26,7 +26,8 @@
         "googleMaps": {
           "apiKey": "AIzaSyA1NHjZVe5q4mzydy3mfNT6G7Rl20Gvxng"
         }
-      }
+      },
+      "package": "com.underbrain.ItsFourTwentySomewhere"
     },
     "web": {
       "favicon": "./assets/favicon.png"
