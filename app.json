@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ItsFourTwentySomewhere",
-    "slug": "itsfourtwentysomewhere",
+    "slug": "ItsFourTwentySomewhere",
     "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,7 +17,7 @@
       "bundleIdentifier": "com.underbrain.ItsFourTwentySomewhere"
     },
     "android": {
-      "versionCode": 2,  // Increment this number
+      "versionCode": 2,
       "package": "com.underbrain.ItsFourTwentySomewhere",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -29,8 +29,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "2a26af1d-e439-4d05-b5db-fb2ac68d37a0"  // Make sure this matches your EAS project ID
+        "projectId": "2a26af1d-e439-4d05-b5db-fb2ac68d37a0"
       }
-    }
+    },
+    "owner": "underbrain"
   }
 }
