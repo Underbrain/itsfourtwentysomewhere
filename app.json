@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "ItsFourTwentySomewhere",
+    "slug": "ItsFourTwentySomewhere",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyA1NHjZVe5q4mzydy3mfNT6G7Rl20Gvxng"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA1NHjZVe5q4mzydy3mfNT6G7Rl20Gvxng"
+        }
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2a26af1d-e439-4d05-b5db-fb2ac68d37a0"
+      }
+    }
+  }
+}
