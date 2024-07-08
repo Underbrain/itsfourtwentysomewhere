@@ -10,13 +10,18 @@ const cities = [
   { name: "Moscow", latitude: 55.7558, longitude: 37.6176, utcOffset: 3 },
   { name: "Dubai", latitude: 25.2048, longitude: 55.2708, utcOffset: 4 },
   { name: "Karachi", latitude: 24.8607, longitude: 67.0011, utcOffset: 5 },
+  { name: "Mumbai", latitude: 19.0760, longitude: 72.8777, utcOffset: 5.5 },
+  { name: "Kathmandu", latitude: 27.7172, longitude: 85.3240, utcOffset: 5.75 },
   { name: "Dhaka", latitude: 23.8103, longitude: 90.4125, utcOffset: 6 },
+  { name: "Yangon", latitude: 16.8409, longitude: 96.1735, utcOffset: 6.5 },
   { name: "Bangkok", latitude: 13.7563, longitude: 100.5018, utcOffset: 7 },
   { name: "Beijing", latitude: 39.9042, longitude: 116.4074, utcOffset: 8 },
   { name: "Tokyo", latitude: 35.6895, longitude: 139.6917, utcOffset: 9 },
+  { name: "Adelaide", latitude: -34.9285, longitude: 138.6007, utcOffset: 9.5 },
   { name: "Sydney", latitude: -33.8688, longitude: 151.2093, utcOffset: 10 },
   { name: "Noumea", latitude: -22.2758, longitude: 166.4580, utcOffset: 11 },
   { name: "Auckland", latitude: -36.8485, longitude: 174.7633, utcOffset: 12 },
+  { name: "Chatham Islands", latitude: -43.95, longitude: -176.56, utcOffset: 12.75 },
   { name: "Samoa", latitude: -13.7590, longitude: -172.1046, utcOffset: -11 },
   { name: "Hawaii", latitude: 21.3069, longitude: -157.8583, utcOffset: -10 },
   { name: "Anchorage", latitude: 61.2181, longitude: -149.9003, utcOffset: -9 },
@@ -25,9 +30,10 @@ const cities = [
   { name: "Chicago", latitude: 41.8781, longitude: -87.6298, utcOffset: -6 },
   { name: "New York", latitude: 40.7128, longitude: -74.0060, utcOffset: -5 },
   { name: "Caracas", latitude: 10.4806, longitude: -66.9036, utcOffset: -4 },
-  { name: "Santiago", latitude: -33.4489, longitude: -70.6693, utcOffset: -3 },
+  { name: "Santiago", latitude: -33.4489, longitude: -70.6693, utcOffset: -4 },
   { name: "Buenos Aires", latitude: -34.6037, longitude: -58.3816, utcOffset: -3 },
   { name: "Sao Paulo", latitude: -23.5505, longitude: -46.6333, utcOffset: -3 },
+  { name: "St. John's", latitude: 47.5615, longitude: -52.7126, utcOffset: -3.5 },
   { name: "Cape Verde", latitude: 14.9167, longitude: -23.5167, utcOffset: -1 },
 ];
 
@@ -41,23 +47,28 @@ const getNext420Times = () => {
   let next420PMCity = null;
   let next420PMTime = Infinity;
 
-  cities.forEach(city => {
+  cities.forEach((city, index) => {
     const offset = city.utcOffset * 3600;
-    let next420AM = (4 * 3600 + 20 * 60 - utcNow + offset) % (24 * 3600);
+    let cityTime = (utcNow + offset) % (24 * 3600);
+    if (cityTime < 0) cityTime += 24 * 3600;
+
+    let next420AM = (4 * 3600 + 20 * 60 - cityTime) % (24 * 3600);
     if (next420AM < 0) next420AM += 24 * 3600;
-    if (next420AM < next420PMTime && next420AM > 0) { // Swap the conditions here
-      next420PMTime = next420AM;
-      next420PMCity = city;
+    if (next420AM < next420AMTime && next420AM > 0) {
+      next420AMTime = next420AM;
+      next420AMCity = cities[(index + 1) % cities.length];
     }
-  
-    let next420PM = (16 * 3600 + 20 * 60 - utcNow + offset) % (24 * 3600);
+
+    let next420PM = (16 * 3600 + 20 * 60 - cityTime) % (24 * 3600);
     if (next420PM < 0) next420PM += 24 * 3600;
-    if (next420PM < next420AMTime && next420PM > 0) { // Swap the conditions here
-      next420AMTime = next420PM;
-      next420AMCity = city;
+    if (next420PM < next420PMTime && next420PM > 0) {
+      next420PMTime = next420PM;
+      next420PMCity = cities[(index + 1) % cities.length];
     }
   });
-  
+
+  //console.log('next420AMCity:', next420AMCity, 'next420AMTime:', next420AMTime);
+  //console.log('next420PMCity:', next420PMCity, 'next420PMTime:', next420PMTime);
 
   return {
     next420AMCity,
@@ -117,29 +128,33 @@ const App = () => {
         {next420AMCity && (
           <Marker
             coordinate={{ latitude: next420AMCity.latitude, longitude: next420AMCity.longitude }}
-            title={`Next 04:20 PM in ${next420AMCity.name}`}
+            title={`Last 04:20 AM in ${next420AMCity.name}`}
           />
         )}
         {next420PMCity && (
           <Marker
             coordinate={{ latitude: next420PMCity.latitude, longitude: next420PMCity.longitude }}
-            title={`Next 04:20 AM in ${next420PMCity.name}`}
+            
+            title={`Last 04:20 PM in ${next420PMCity.name}`}
           />
         )}
       </MapView>
       <View style={styles.countdownContainer}>
         {next420AMCity && (
           <Text style={styles.countdownText}>
-            {`Next 04:20 AM: ${next420AMCity.name}`}
+            {`Last 04:20 AM: ${next420AMCity.name}`}
           </Text>
         )}
         {next420PMCity && (
           <Text style={styles.countdownText}>
-            {`Next 04:20 PM: ${next420PMCity.name}`}
+            {`Last 04:20 PM: ${next420PMCity.name}`}
           </Text>
         )}
         <Text style={styles.countdownText}>
-          {`Countdown: ${formatTime(Math.min(next420AMTime, next420PMTime))}`}
+          {`Countdown to 04:20 AM: ${formatTime(next420AMTime)}`}
+        </Text>
+        <Text style={styles.countdownText}>
+          {`Countdown to 04:20 PM: ${formatTime(next420PMTime)}`}
         </Text>
       </View>
       <TouchableOpacity style={styles.bottomBanner} onPress={() => Linking.openURL('https://www.patreon.com/MonkeysBrewMediaLLC')}>
@@ -169,9 +184,6 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height / 2,
-  },
-  countdownContainer: {
-   
   },
   countdownContainer: {
     marginTop: 20,
