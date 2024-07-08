@@ -6,10 +6,7 @@
     "production": {
       "android": {
         "buildType": "app-bundle",
-        "artifactPath": "android/app/build/outputs/bundle/release/app-release.aab"
-      },
-      "ios": {
-        "buildType": "archive"
+        "applicationArchivePath": "android/app/build/outputs/bundle/release/app-release.aab"
       }
     }
   }
